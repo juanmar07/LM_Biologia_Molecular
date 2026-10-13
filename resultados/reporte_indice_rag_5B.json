@@ -1,0 +1,189 @@
+{
+  "version": "5B",
+  "documents": [
+    {
+      "source_doc": "Avances en terapia génica en humanos algunos conceptos básicos y un recorrido histórico.pdf",
+      "split": "train",
+      "clean_file": "datos/documentos_limpios/doc_Avances_en_terapia_genica_en_humanos_algunos_conceptos_basicos_y_un_recorrido_hi_d9a409a59c8e.txt",
+      "sha256": "a2d5ae274d3364de3e0b1e328445b0eedbb541320838e75119f60c2799ede284",
+      "chunks": 295,
+      "characters": 49327
+    },
+    {
+      "source_doc": "CIENCIAS OMICAS -ROCHE.pdf",
+      "split": "train",
+      "clean_file": "datos/documentos_limpios/doc_CIENCIAS_OMICAS_ROCHE_8b5f8df6ace7.txt",
+      "sha256": "24b003decd0c1a160cf723cd7d7eac37aa256ff28f85f9b797877b8e4d646360",
+      "chunks": 606,
+      "characters": 95100
+    },
+    {
+      "source_doc": "Capítulo 13_ Enzimas de restricción.pdf",
+      "split": "train",
+      "clean_file": "datos/documentos_limpios/doc_Capitulo_13_Enzimas_de_restriccion_68d37c5d5ddb.txt",
+      "sha256": "130903825e208aa3c8aa2eda465d06f44d0619f51e21421615365353eb0dc6e5",
+      "chunks": 91,
+      "characters": 23376
+    },
+    {
+      "source_doc": "Capítulo 14_ Vectores de clonación y expresión.pdf",
+      "split": "train",
+      "clean_file": "datos/documentos_limpios/doc_Capitulo_14_Vectores_de_clonacion_y_expresion_dd35cdf34a4f.txt",
+      "sha256": "5c9adad8e4425e866d481061a8df84439f23715174c95da0a11e3aca2723edde",
+      "chunks": 248,
+      "characters": 37039
+    },
+    {
+      "source_doc": "Informes_anticipando_2021_EPIGENOMICA_web.pdf",
+      "split": "train",
+      "clean_file": "datos/documentos_limpios/doc_Informes_anticipando_2021_EPIGENOMICA_web_0dfbfbb0c702.txt",
+      "sha256": "ed0e00b636bc72d746d3a7cb1d6a6025d1e963f06796b78481aec63bccc91698",
+      "chunks": 380,
+      "characters": 59163
+    },
+    {
+      "source_doc": "Ingeniería Genética_2 ed_2015.pdf",
+      "split": "train",
+      "clean_file": "datos/documentos_limpios/doc_Ingenieria_Genetica_2_ed_2015_8358a3d35652.txt",
+      "sha256": "bd6c00bd03b869430f8e354c3b027e071dc710bbe2993cbd7350f00e4b1081d9",
+      "chunks": 7706,
+      "characters": 1123594
+    },
+    {
+      "source_doc": "Mecanismos epigeneticos.pdf",
+      "split": "train",
+      "clean_file": "datos/documentos_limpios/doc_Mecanismos_epigeneticos_c68bcd2b6168.txt",
+      "sha256": "b18dc02f88b80e805b7111249d8b182c480d6bf4e281cda3a09e184caddff654",
+      "chunks": 165,
+      "characters": 24361
+    },
+    {
+      "source_doc": "TUM - Biología molecular Fundamentos y aplicaciones en las ciencias de la salud - Salazar.pdf",
+      "split": "train",
+      "clean_file": "datos/documentos_limpios/doc_TUM_Biologia_molecular_Fundamentos_y_aplicaciones_en_las_ciencias_de_la_salud_Sa_93b087d5c610.txt",
+      "sha256": "e86543544b08c057a35302c91a7af102c5cda271da5c3d2b816f4634ff4a5c0c",
+      "chunks": 8463,
+      "characters": 1211045
+    },
+    {
+      "source_doc": "capitulo 1 fundamentos de gentica, genómica, proteomica y bioinformatica.pdf",
+      "split": "train",
+      "clean_file": "datos/documentos_limpios/doc_capitulo_1_fundamentos_de_gentica_genomica_proteomica_y_bioinformatica_22681c54b00f.txt",
+      "sha256": "871ae3c94c67afe2ab371c2a34d77e543b8fea97f41c0b0d06fcbc5fc7a4433b",
+      "chunks": 596,
+      "characters": 87230
+    },
+    {
+      "source_doc": "capitulo 29 terapia genica.pdf",
+      "split": "train",
+      "clean_file": "datos/documentos_limpios/doc_capitulo_29_terapia_genica_6a65e5dac22a.txt",
+      "sha256": "22ef8ae02bf4a2255f819e5fb3a79820bd66840e7113f1c5311169f80d7930fc",
+      "chunks": 239,
+      "characters": 36340
+    },
+    {
+      "source_doc": "capitulo 30 celulas madre y su aplicacion en terapia celular.pdf",
+      "split": "train",
+      "clean_file": "datos/documentos_limpios/doc_capitulo_30_celulas_madre_y_su_aplicacion_en_terapia_celular_7c865b865629.txt",
+      "sha256": "e6316868cbc7a4cc2f22023bd52d8bb3011ed5b12f7f5a61f13e20d7106ec0b0",
+      "chunks": 347,
+      "characters": 49143
+    },
+    {
+      "source_doc": "capitulo 39 bioquimica harper regulacion expresion genica.pdf",
+      "split": "train",
+      "clean_file": "datos/documentos_limpios/doc_capitulo_39_bioquimica_harper_regulacion_expresion_genica_39372e9763e2.txt",
+      "sha256": "53b9074d54d09b2e24d13cb2a1e0c89bc5160171b70514345857b370e28dd92b",
+      "chunks": 870,
+      "characters": 120854
+    },
+    {
+      "source_doc": "capitulo 8 regulacion de la expresion genica.pdf",
+      "split": "train",
+      "clean_file": "datos/documentos_limpios/doc_capitulo_8_regulacion_de_la_expresion_genica_6c5b9d4a653d.txt",
+      "sha256": "1656552fdefebbe4b507c3be9e6fcabc685d0fca5867dd536a15c4d8b7e04516",
+      "chunks": 247,
+      "characters": 38844
+    },
+    {
+      "source_doc": "epigenetica.pdf",
+      "split": "train",
+      "clean_file": "datos/documentos_limpios/doc_epigenetica_3f65bf8b9315.txt",
+      "sha256": "2a0a1dc20aacdd9a2dd60a9b200014be7bab035ddbaa93a6766fd90cb86307d8",
+      "chunks": 172,
+      "characters": 25526
+    },
+    {
+      "source_doc": "CRISP-Cas - Aplicaciones clínicas de la herramienta CRISPR-Cas.pdf.pdf",
+      "split": "validation",
+      "clean_file": "datos/documentos_limpios/doc_CRISP_Cas_Aplicaciones_clinicas_de_la_herramienta_CRISPR_Cas_pdf_43eae3aebc6d.txt",
+      "sha256": "3fcc23fe2567cfd9170ea82d8e4ed7c298c259937f13fd4261d074e9acf3c128",
+      "chunks": 366,
+      "characters": 56709
+    },
+    {
+      "source_doc": "DNA recombinante y aplicaciones en medicina.pdf",
+      "split": "validation",
+      "clean_file": "datos/documentos_limpios/doc_DNA_recombinante_y_aplicaciones_en_medicina_0edd14db8d9c.txt",
+      "sha256": "33cef04fd544fcc28f48e54372993efa0909ceb21c5b7ffd61c71d95432aa54d",
+      "chunks": 493,
+      "characters": 72351
+    },
+    {
+      "source_doc": "Manual de problemas, practicvas de laboratorio y simulación de genética.pdf",
+      "split": "validation",
+      "clean_file": "datos/documentos_limpios/doc_Manual_de_problemas_practicvas_de_laboratorio_y_simulacion_de_genetica_80bfd58a77c0.txt",
+      "sha256": "52975cbb7d3e8102fdf4382b7b10270bc01a6962a47dd0fd35795ef514207612",
+      "chunks": 1708,
+      "characters": 226869
+    },
+    {
+      "source_doc": "capitulo 88 biologia de las celulas madre.pdf",
+      "split": "validation",
+      "clean_file": "datos/documentos_limpios/doc_capitulo_88_biologia_de_las_celulas_madre_c4630d1b821c.txt",
+      "sha256": "f63c259733612bb2cd47a947554a170d9904c8a9004916b3b779e759b3df93ef",
+      "chunks": 169,
+      "characters": 22855
+    }
+  ],
+  "total_documents": 18,
+  "total_chunks": 23161,
+  "splits": {
+    "train": 20425,
+    "validation": 2736
+  },
+  "k1": 1.5,
+  "b": 0.75,
+  "avgdl": 12.836751435602952,
+  "vocabulary": 28006,
+  "chunking": {
+    "preferred_bpe": 40,
+    "max_bpe": 48,
+    "overlap_target_bpe": 8,
+    "overlap_policy": "whole-word overlap within split long sentences; intact sentences take priority over overlap",
+    "sentence_aware": true,
+    "source_text_unchanged": true,
+    "rejected": {
+      "noise_or_isolated_heading_lines": 8666,
+      "isolated_titles_indices_questions_rejected": 9154,
+      "short_fragments_rejected": 28,
+      "oversized_whole_words_rejected": 6
+    },
+    "fragments": 13687
+  },
+  "normalization": "NFKC/casefold/accent removal; small Spanish stopword list; hyphen compounds retained plus component terms; no stemming",
+  "tie_break": "descending score, ascending stable chunk_id",
+  "seed": 42,
+  "test_documents_used": 0,
+  "chunks_sha256": "8adce0acf8d84f61a80e9d401b989991f43452d0f4bcc920680c500f85bbc49f",
+  "index_sha256": "7b6f2c2bc47e547d343cf0da65d547d9c6bfc1f4e4e09c7685b7444c2d7d9d3f",
+  "tokenizer_sha256": "97953e99660fdebcf071b8327cd79f9cfa62e2ba38eae85d69f9f0e718d55b7e",
+  "splits_sha256": "4a7486ad9a2a646116f2f41e9cf065a0009e2ef062333a9f8c5944bbf455dad7",
+  "suite_sha256": "05ade1356ef45030566b1c8f1676d9883096d00622208904256b1a2cd75dd29f",
+  "integrity": {
+    "previous_artifacts_preserved": true,
+    "protected_files": 139,
+    "test_documents_used": 0,
+    "test_content_reads": 0
+  }
+}

@@ -1,0 +1,302 @@
+{
+  "version": "5B",
+  "verdict": "5B RAG FUNCIONAL CON LIMITACIONES — PUEDE CONTINUAR A 5C",
+  "runtime": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "device": "cpu",
+    "threads": 2,
+    "greedy": true,
+    "seed": 42
+  },
+  "generation_model": {
+    "checkpoint": "C:\\Universidad\\Octavo Semestre\\Profundizacion II\\mini_gpt\\modelos\\checkpoint_sft_5A2_best.pt",
+    "checkpoint_sha256": "ffe764eadb79a40a56ed63b1eaa119a217b6774860159b2e8df39f01f75170d1",
+    "epoch": 8,
+    "strict": true,
+    "parameters": 1379456,
+    "seed": 42
+  },
+  "corpus_documents": 18,
+  "chunks": 23161,
+  "document_splits": {
+    "train": 14,
+    "validation": 4
+  },
+  "chunk_splits": {
+    "train": 20425,
+    "validation": 2736
+  },
+  "suite_questions": 74,
+  "suite_tasks": {
+    "paraphrastic_grounded": 10,
+    "extractive_grounded": 64
+  },
+  "retrieval_metrics": {
+    "evidence_recall_at_1": 0.4864864864864865,
+    "evidence_recall_at_3": 0.5540540540540541,
+    "evidence_recall_at_5": 0.6216216216216216,
+    "mean_reciprocal_rank": 0.5268018018018018,
+    "mean_top1_BM25_score": 18.205590370839865,
+    "source_document_recall_at_1": 0.6351351351351351,
+    "source_document_recall_at_3": 0.7297297297297297,
+    "source_document_recall_at_5": 0.8108108108108109
+  },
+  "end_to_end_metrics": {
+    "normalized_token_precision": 0.24631956853573259,
+    "normalized_token_recall": 0.21727728449742303,
+    "normalized_token_F1": 0.2139553940778638,
+    "exact_match_descriptive": 0.0,
+    "EOS_generation_rate": 0.8513513513513513,
+    "natural_closure_rate": 0.8513513513513513,
+    "repetition_rate": 0.5135135135135135,
+    "false_abstention_rate": 0.0,
+    "context_token_precision": 0.30374820075675013
+  },
+  "classification_counts": {
+    "RETRIEVAL_FAILURE": 38,
+    "RETRIEVAL_SUCCESS_GENERATION_FAILURE": 32,
+    "AMBIGUOUS_REVIEW_REQUIRED": 4
+  },
+  "retrieval_targets_met": {
+    "source_at_3": false,
+    "evidence_at_3": false,
+    "evidence_at_5": false
+  },
+  "supplied_expected_evidence": 0.4864864864864865,
+  "expected_evidence_found_top5_but_not_delivered": 10,
+  "generation_metrics_when_expected_evidence_supplied": {
+    "normalized_token_precision": 0.2542998896367067,
+    "normalized_token_recall": 0.22633467353485567,
+    "normalized_token_F1": 0.22359483332820845,
+    "exact_match_descriptive": 0.0,
+    "EOS_generation_rate": 0.8888888888888888,
+    "natural_closure_rate": 0.8888888888888888,
+    "repetition_rate": 0.5277777777777778,
+    "false_abstention_rate": 0.0,
+    "context_token_precision": 0.26947409244677906
+  },
+  "budget": {
+    "context_max": 47,
+    "prompt_max": 84,
+    "total_min": 50,
+    "total_max": 126,
+    "generation_budget_reduced": 4,
+    "budget_stop_count": 0,
+    "max_new_token_stop_count": 11,
+    "question_truncations": 0,
+    "context_truncations": 0
+  },
+  "smoke_passed": true,
+  "smoke_count": 29,
+  "integrity": {
+    "previous_artifacts_preserved": true,
+    "protected_files": 139,
+    "test_documents_used": 0,
+    "test_content_reads": 0
+  },
+  "hashes": {
+    "datos/rag/chunks.jsonl": "8adce0acf8d84f61a80e9d401b989991f43452d0f4bcc920680c500f85bbc49f",
+    "datos/rag/indice_bm25.pkl": "7b6f2c2bc47e547d343cf0da65d547d9c6bfc1f4e4e09c7685b7444c2d7d9d3f",
+    "datos/rag/suite_validation_5B.json": "05ade1356ef45030566b1c8f1676d9883096d00622208904256b1a2cd75dd29f",
+    "datos/sft_5A2/validation_instrucciones_5A2.jsonl": "e0bdd408bcb3f50b8adf98a15783f3678e50f793f5ba11e473f8cd18995b5d50",
+    "datos/tokenizer/tokenizer.json": "97953e99660fdebcf071b8327cd79f9cfa62e2ba38eae85d69f9f0e718d55b7e",
+    "modelos/checkpoint_sft_5A2_best.pt": "ffe764eadb79a40a56ed63b1eaa119a217b6774860159b2e8df39f01f75170d1",
+    "rag_common.py": "79d7a864da029a34fd4c44ca898348c7cfb6e1e6572f7a7c6e9381a4de045572",
+    "construir_indice_rag.py": "1745a699892fe997898cc225b85bf71f318bb6423043d8aa11f803cd7e862fe4",
+    "retrieval.py": "a5bf66ce27287fb3dd1088157e9a48cc63988cb4bb109082ef11e6a277aae00d",
+    "rag.py": "c563b8ab6d8ba32593062198b8d2c678acb647185adc1a8151d04a6a0c0d81cb",
+    "evaluar_rag_5B.py": "3f6266cabfd45c36129140b01e5a54129fb90a4f0e1df7be136628f2cc585ddf",
+    "probar_rag_5B.py": "72db548e326fc892bc92f2320efa4e8509e2944ed7fd9e85923a09b84bf530d6",
+    "documentar_rag_5B.py": "107c1cc3add205828380a8c1f1447f1c8e1b78f5213b7e5b11fba36773a576cc"
+  },
+  "access_logs": [
+    {
+      "path": "resultados/accesos_rag_5B_-c_13852.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_-c_14292.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_-c_14436.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_-c_15404.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_-c_16260.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_-c_18388.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_-c_26824.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_-c_30444.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_-c_8348.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_construir_indice_rag_13696.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_construir_indice_rag_14396.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_construir_indice_rag_15716.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_construir_indice_rag_18812.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_construir_indice_rag_19240.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_construir_indice_rag_20492.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_documentar_rag_5B_1236.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_documentar_rag_5B_27964.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_evaluar_rag_5B_13768.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_evaluar_rag_5B_18816.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_evaluar_rag_5B_23388.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_probar_rag_5B_16168.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 8
+    },
+    {
+      "path": "resultados/accesos_rag_5B_probar_rag_5B_1668.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 8
+    },
+    {
+      "path": "resultados/accesos_rag_5B_probar_rag_5B_30380.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 8
+    },
+    {
+      "path": "resultados/accesos_rag_5B_rag_10732.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_rag_11364.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_rag_12316.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_rag_15808.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_rag_16556.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_rag_17244.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_rag_22316.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_rag_23052.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_rag_24920.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_rag_27828.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_rag_28168.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_rag_31408.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    },
+    {
+      "path": "resultados/accesos_rag_5B_rag_common_24208.json",
+      "test_content_reads": 0,
+      "blocked_accesses": 0
+    }
+  ],
+  "no_training": true,
+  "no_external_API": true,
+  "no_gate_5C": true,
+  "scientific_validation_closed": false,
+  "first_pass_preserved": true,
+  "source_reviews": 18,
+  "representative_error_count": 12
+}

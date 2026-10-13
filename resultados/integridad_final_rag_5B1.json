@@ -1,0 +1,10 @@
+{
+  "previous_artifacts_preserved": true,
+  "protected_files": 206,
+  "authorized_rag_change": {
+    "before": "c563b8ab6d8ba32593062198b8d2c678acb647185adc1a8151d04a6a0c0d81cb",
+    "after": "f16a2da7068432195c433cc262c5e404b2c16207331da9df37a21e4011ffb4ee"
+  },
+  "test_documents_used": 0,
+  "test_content_reads": 0
+}

@@ -1,0 +1,28 @@
+MAC
+
+pwd
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install --upgrade pip
+pip install -r requirements.txt  
+python3 -m pip install numpy     
+python3 preparar_corpus.py  
+python3 tokenizador.py   
+python3 inspeccionar.py    
+python3 entrenar.py  
+python3 generar.py 
+
+WINDOWS
+
+pwd
+py -m venv .venv
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.venv\Scripts\Activate.ps1
+py -m pip install --upgrade pip
+pip install -r requirements.txt
+py -m pip install numpy
+py preparar_corpus.py
+py tokenizador.py
+py inspeccionar.py
+py entrenar.py
+py generar.py

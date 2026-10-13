@@ -1,0 +1,96 @@
+# Python: bytecode, cachés y cobertura generada localmente.
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.tox/
+.nox/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Entornos locales y configuración con secretos.
+.venv/
+venv/
+env/
+ENV/
+.env
+.env.*
+!.env.example
+!.env.*.example
+credentials.json
+**/credentials.json
+secrets.json
+**/secrets.json
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+
+# Archivos temporales y del sistema/editor.
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+
+# El corpus actual contiene 21 PDF originales de libros/artículos de terceros.
+# No redistribuir las fuentes sin permiso explícito de sus titulares.
+/corpus/
+
+# Datos derivados de las fuentes: textos limpios, corpus concatenado y splits
+# de contenido (incluido Test). Se conservan los manifiestos y reportes resumen.
+/datos/corpus_limpio.txt
+/datos/documentos_limpios/
+/datos/splits/*.txt
+/datos/dataset/*.pt
+# Este reporte incorpora fragmentos literales del corpus.
+/datos/dataset/reporte_dataset.json
+
+# Tokenizer, candidatos, suites y artefactos de entrenamiento son generados
+# desde los scripts. Algunos contienen muestras textuales del corpus.
+/datos/tokenizer/
+/datos/sft/
+/datos/sft_5A1/
+/datos/sft_5A2/
+/datos/rag/
+/datos/evaluacion_5C/
+
+# Snapshot de código congelado y configuración experimental necesarios para
+# reproducir comparaciones 5B.1; los hashes/baselines de máquina se excluyen.
+/datos/rag_5B1/*
+!/datos/rag_5B1/experimento_congelado_5B1.json
+!/datos/rag_5B1/rag_5B_original.py.txt
+
+# Los ocho checkpoints actuales suman ~133 MB; reconstruibles con el código
+# de entrenamiento. Se mantiene el .gitkeep para explicar la estructura.
+/modelos/*
+!/modelos/.gitkeep
+
+# Sesiones, trazas por proceso, evaluaciones detalladas y otros resultados
+# generados pueden contener respuestas, fragmentos de fuentes o rutas locales.
+# Se permiten sólo los resúmenes pequeños y sin rutas absolutas revisados.
+/resultados/*
+!/resultados/.gitkeep
+!/resultados/resumen_rag_5B.json
+!/resultados/resumen_rag_5B1.json
+!/resultados/reporte_indice_rag_5B.json
+!/resultados/reporte_modelo_3A.json
+!/resultados/integridad_final_rag_5B.json
+!/resultados/integridad_final_rag_5B1.json
+
+# Curación SFT con evidencia y respuestas derivadas literalmente de los PDF.
+/curacion_sft_5A2.json

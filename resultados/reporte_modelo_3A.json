@@ -1,0 +1,1558 @@
+{
+  "architecture": {
+    "attention_implementation": "torch.nn.MultiheadAttention batch_first=True, need_weights=False",
+    "class": "MiniGPT",
+    "configurable": [
+      "vocab_size constructor",
+      "context,d_model,n_heads,n_layers,d_ff,dropout from config.py"
+    ],
+    "configuration": {
+      "activation": "GELU",
+      "attention_dropout": 0.1,
+      "attention_output_bias": true,
+      "context_length": 128,
+      "d_ff": 512,
+      "d_model": 128,
+      "dropout": 0.1,
+      "embedding_dropout": 0.1,
+      "embedding_padding_idx": null,
+      "ffn_bias": true,
+      "ffn_hidden_dropout": 0.1,
+      "ffn_output_dropout": 0.1,
+      "gelu_approximate": "none",
+      "head_dim": 32,
+      "ignore_index": -100,
+      "layer_norm_eps": 1e-05,
+      "n_heads": 4,
+      "n_layers": 3,
+      "normalization": "pre-norm",
+      "output_bias": false,
+      "positional_embedding": "learned_absolute",
+      "qkv_bias": true,
+      "residual_attention_extra_dropout": 0.0,
+      "special_token_ids": {
+        "BOS": 2,
+        "EOS": 3,
+        "PAD": 0,
+        "UNK": 1
+      },
+      "vocab_size": 6000,
+      "weight_tying": true
+    },
+    "diagram": "X -> token_embedding + learned_position_embedding -> dropout -> 3 x [x + MHA(LN1(x)); x + FFN(LN2(x))] -> final_LN -> tied vocab projection -> logits",
+    "hardcoded": [
+      "pre-norm",
+      "GELU approximate=none",
+      "learned absolute positions",
+      "tied output without bias",
+      "LayerNorm eps PyTorch default 1e-5",
+      "CrossEntropyLoss default ignore_index=-100"
+    ],
+    "source_audit": "Inspected installed PyTorch 2.8.0+cpu initialization, multi_head_attention_forward and boolean _canonical_mask implementation."
+  },
+  "attention_tests": {
+    "attention_dropout_different_seed_changes_output": true,
+    "attention_dropout_same_seed_identical": true,
+    "attention_eval_repeated_identical": true,
+    "manual_reference_cases": [
+      {
+        "block": 0,
+        "length": 1,
+        "manual_reference_max_abs_error": 0.0,
+        "masked_probabilities_exact_zero": true,
+        "passed": true,
+        "qkv_shape": [
+          2,
+          4,
+          1,
+          32
+        ],
+        "scale": 0.17677669529663687,
+        "scores_shape": [
+          2,
+          4,
+          1,
+          1
+        ],
+        "softmax_dimension": -1
+      },
+      {
+        "block": 0,
+        "length": 7,
+        "manual_reference_max_abs_error": 2.384185791015625e-07,
+        "masked_probabilities_exact_zero": true,
+        "passed": true,
+        "qkv_shape": [
+          2,
+          4,
+          7,
+          32
+        ],
+        "scale": 0.17677669529663687,
+        "scores_shape": [
+          2,
+          4,
+          7,
+          7
+        ],
+        "softmax_dimension": -1
+      },
+      {
+        "block": 0,
+        "length": 128,
+        "manual_reference_max_abs_error": 2.384185791015625e-07,
+        "masked_probabilities_exact_zero": true,
+        "passed": true,
+        "qkv_shape": [
+          2,
+          4,
+          128,
+          32
+        ],
+        "scale": 0.17677669529663687,
+        "scores_shape": [
+          2,
+          4,
+          128,
+          128
+        ],
+        "softmax_dimension": -1
+      },
+      {
+        "block": 1,
+        "length": 1,
+        "manual_reference_max_abs_error": 0.0,
+        "masked_probabilities_exact_zero": true,
+        "passed": true,
+        "qkv_shape": [
+          2,
+          4,
+          1,
+          32
+        ],
+        "scale": 0.17677669529663687,
+        "scores_shape": [
+          2,
+          4,
+          1,
+          1
+        ],
+        "softmax_dimension": -1
+      },
+      {
+        "block": 1,
+        "length": 7,
+        "manual_reference_max_abs_error": 1.7881393432617188e-07,
+        "masked_probabilities_exact_zero": true,
+        "passed": true,
+        "qkv_shape": [
+          2,
+          4,
+          7,
+          32
+        ],
+        "scale": 0.17677669529663687,
+        "scores_shape": [
+          2,
+          4,
+          7,
+          7
+        ],
+        "softmax_dimension": -1
+      },
+      {
+        "block": 1,
+        "length": 128,
+        "manual_reference_max_abs_error": 1.7881393432617188e-07,
+        "masked_probabilities_exact_zero": true,
+        "passed": true,
+        "qkv_shape": [
+          2,
+          4,
+          128,
+          32
+        ],
+        "scale": 0.17677669529663687,
+        "scores_shape": [
+          2,
+          4,
+          128,
+          128
+        ],
+        "softmax_dimension": -1
+      },
+      {
+        "block": 2,
+        "length": 1,
+        "manual_reference_max_abs_error": 0.0,
+        "masked_probabilities_exact_zero": true,
+        "passed": true,
+        "qkv_shape": [
+          2,
+          4,
+          1,
+          32
+        ],
+        "scale": 0.17677669529663687,
+        "scores_shape": [
+          2,
+          4,
+          1,
+          1
+        ],
+        "softmax_dimension": -1
+      },
+      {
+        "block": 2,
+        "length": 7,
+        "manual_reference_max_abs_error": 2.384185791015625e-07,
+        "masked_probabilities_exact_zero": true,
+        "passed": true,
+        "qkv_shape": [
+          2,
+          4,
+          7,
+          32
+        ],
+        "scale": 0.17677669529663687,
+        "scores_shape": [
+          2,
+          4,
+          7,
+          7
+        ],
+        "softmax_dimension": -1
+      },
+      {
+        "block": 2,
+        "length": 128,
+        "manual_reference_max_abs_error": 2.384185791015625e-07,
+        "masked_probabilities_exact_zero": true,
+        "passed": true,
+        "qkv_shape": [
+          2,
+          4,
+          128,
+          32
+        ],
+        "scale": 0.17677669529663687,
+        "scores_shape": [
+          2,
+          4,
+          128,
+          128
+        ],
+        "softmax_dimension": -1
+      }
+    ],
+    "no_batch_or_head_mixing_reference_passed": true
+  },
+  "available_device": {
+    "cpu_threads_for_audit": 2,
+    "cuda_available": false,
+    "hardware_GPU_absence_claimed": false,
+    "mps_available": false,
+    "selected": "cpu",
+    "torch_cuda_build": null,
+    "torch_version": "2.8.0+cpu"
+  },
+  "backward_smoke_test": {
+    "backward_calls": 1,
+    "batch_size": 2,
+    "flattened_logits_shape": [
+      256,
+      6000
+    ],
+    "flattened_targets_shape": [
+      256
+    ],
+    "gradient_clipping_calls": 0,
+    "ignore_index": -100,
+    "loss": 81.55999755859375,
+    "loss_finite_positive": true,
+    "loss_matches_explicit_ignore_index": true,
+    "optimizer_created": false,
+    "optimizer_steps": 0,
+    "parameter_sha256_after": "d93b7f383f1e37d57c24774a417f3a95cf2d10b6b432dbbee76f1573986f377b",
+    "parameter_sha256_before": "d93b7f383f1e37d57c24774a417f3a95cf2d10b6b432dbbee76f1573986f377b",
+    "parameters_unchanged": true,
+    "split": "train",
+    "test_model_discarded_after_report": true
+  },
+  "batch_memory_preanalysis": [
+    {
+      "attention_scores_reference_per_block_fp32_MiB": 2.0,
+      "batch": 8,
+      "estimate_is_not_peak_memory": true,
+      "ffn_hidden_per_block_fp32_MiB": 2.0,
+      "input_shape": [
+        8,
+        128
+      ],
+      "logits_elements": 6144000,
+      "logits_fp32_MiB": 23.4375,
+      "logits_fp32_bytes": 24576000,
+      "logits_shape": [
+        8,
+        128,
+        6000
+      ],
+      "parameters_fp32_MiB": 5.26220703125,
+      "qkv_per_block_fp32_MiB": 1.5,
+      "three_blocks_qkv_ffn_scores_inventory_MiB": 16.5
+    },
+    {
+      "attention_scores_reference_per_block_fp32_MiB": 4.0,
+      "batch": 16,
+      "estimate_is_not_peak_memory": true,
+      "ffn_hidden_per_block_fp32_MiB": 4.0,
+      "input_shape": [
+        16,
+        128
+      ],
+      "logits_elements": 12288000,
+      "logits_fp32_MiB": 46.875,
+      "logits_fp32_bytes": 49152000,
+      "logits_shape": [
+        16,
+        128,
+        6000
+      ],
+      "parameters_fp32_MiB": 5.26220703125,
+      "qkv_per_block_fp32_MiB": 3.0,
+      "three_blocks_qkv_ffn_scores_inventory_MiB": 33.0
+    },
+    {
+      "attention_scores_reference_per_block_fp32_MiB": 8.0,
+      "batch": 32,
+      "estimate_is_not_peak_memory": true,
+      "ffn_hidden_per_block_fp32_MiB": 8.0,
+      "input_shape": [
+        32,
+        128
+      ],
+      "logits_elements": 24576000,
+      "logits_fp32_MiB": 93.75,
+      "logits_fp32_bytes": 98304000,
+      "logits_shape": [
+        32,
+        128,
+        6000
+      ],
+      "parameters_fp32_MiB": 5.26220703125,
+      "qkv_per_block_fp32_MiB": 6.0,
+      "three_blocks_qkv_ffn_scores_inventory_MiB": 66.0
+    }
+  ],
+  "block_tests": {
+    "blocks": [
+      {
+        "activation": "GELU approximate=none",
+        "dropout": 0.1,
+        "ffn": [
+          128,
+          512,
+          128
+        ],
+        "ffn_dropout_positions": [
+          "after GELU",
+          "after second Linear"
+        ],
+        "index": 0,
+        "layer_norm_eps": 1e-05,
+        "pre_norm_residual_exact": true
+      },
+      {
+        "activation": "GELU approximate=none",
+        "dropout": 0.1,
+        "ffn": [
+          128,
+          512,
+          128
+        ],
+        "ffn_dropout_positions": [
+          "after GELU",
+          "after second Linear"
+        ],
+        "index": 1,
+        "layer_norm_eps": 1e-05,
+        "pre_norm_residual_exact": true
+      },
+      {
+        "activation": "GELU approximate=none",
+        "dropout": 0.1,
+        "ffn": [
+          128,
+          512,
+          128
+        ],
+        "ffn_dropout_positions": [
+          "after GELU",
+          "after second Linear"
+        ],
+        "index": 2,
+        "layer_norm_eps": 1e-05,
+        "pre_norm_residual_exact": true
+      }
+    ],
+    "determinism": {
+      "global_accelerator_determinism_claimed": false,
+      "seed": 42,
+      "train_different_rng_seed_changes_output": true,
+      "train_same_rng_seed_bit_identical": true,
+      "two_eval_outputs_bit_identical": true,
+      "two_initializations_bit_identical": true
+    }
+  },
+  "causal_mask_tests": {
+    "blocks": [
+      {
+        "block": 0,
+        "device": "cpu",
+        "diagonal_allowed": true,
+        "dtype": "torch.bool",
+        "future_blocked": true,
+        "lengths_tested": [
+          1,
+          7,
+          64,
+          128
+        ],
+        "persistent": false,
+        "reused_between_forwards": true,
+        "shape": [
+          128,
+          128
+        ],
+        "slice_shares_storage": true
+      },
+      {
+        "block": 1,
+        "device": "cpu",
+        "diagonal_allowed": true,
+        "dtype": "torch.bool",
+        "future_blocked": true,
+        "lengths_tested": [
+          1,
+          7,
+          64,
+          128
+        ],
+        "persistent": false,
+        "reused_between_forwards": true,
+        "shape": [
+          128,
+          128
+        ],
+        "slice_shares_storage": true
+      },
+      {
+        "block": 2,
+        "device": "cpu",
+        "diagonal_allowed": true,
+        "dtype": "torch.bool",
+        "future_blocked": true,
+        "lengths_tested": [
+          1,
+          7,
+          64,
+          128
+        ],
+        "persistent": false,
+        "reused_between_forwards": true,
+        "shape": [
+          128,
+          128
+        ],
+        "slice_shares_storage": true
+      }
+    ],
+    "boolean_mask_semantics": "True blocks future keys; [L,L] shared across batch and heads by MultiheadAttention",
+    "context_and_input_rejections": {
+      "context_129": {
+        "message": "La secuencia supera LONGITUD_CONTEXTO=128",
+        "type": "ValueError"
+      },
+      "float_ids": {
+        "message": "Expected tensor for argument #1 'indices' to have one of the following scalar types: Long, Int; but got torch.FloatTensor instead (while checking arguments for embedding)",
+        "type": "RuntimeError"
+      },
+      "id_6000": {
+        "message": "index out of range in self",
+        "type": "IndexError"
+      },
+      "id_negative": {
+        "message": "index out of range in self",
+        "type": "IndexError"
+      }
+    },
+    "device_tests": [
+      {
+        "buffer_moves_with_model": true,
+        "device": "cpu",
+        "forward_passed": true
+      }
+    ],
+    "future_leakage": [
+      {
+        "k_inclusive": 0,
+        "length": 7,
+        "max_prefix_logit_difference": 0.0,
+        "passed": true,
+        "suffix_changed": true
+      },
+      {
+        "k_inclusive": 16,
+        "length": 64,
+        "max_prefix_logit_difference": 0.0,
+        "passed": true,
+        "suffix_changed": true
+      },
+      {
+        "k_inclusive": 0,
+        "length": 128,
+        "max_prefix_logit_difference": 0.0,
+        "passed": true,
+        "suffix_changed": true
+      },
+      {
+        "k_inclusive": 63,
+        "length": 128,
+        "max_prefix_logit_difference": 0.0,
+        "passed": true,
+        "suffix_changed": true
+      },
+      {
+        "k_inclusive": 126,
+        "length": 128,
+        "max_prefix_logit_difference": 0.0,
+        "passed": true,
+        "suffix_changed": true
+      }
+    ],
+    "old_new_outputs_bit_identical": true,
+    "state_dict_keys_unchanged": true,
+    "tolerance": {
+      "atol": 1e-05,
+      "rtol": 1e-05
+    },
+    "unavailable_device_tests": [
+      "cuda",
+      "mps"
+    ]
+  },
+  "checkpoint_metadata_specification": {
+    "checkpoint_written": false,
+    "context_length": 128,
+    "d_ff": 512,
+    "d_model": 128,
+    "dropout": 0.1,
+    "load_contract": [
+      "Validate schema, model code compatibility, tokenizer and dataset hashes before use.",
+      "Reject duplicated top-level architecture values if inconsistent with model_config.",
+      "In 3B adapt constructors to accept stored model_config explicitly; existing constructors import architectural globals from config.py.",
+      "Reconstruct architecture from stored model_config, re-establish tying, then load_state_dict(strict=True).",
+      "If loader/constructor adaptation is absent, reject config mismatch rather than silently loading into the current config.py architecture.",
+      "torch.load(weights_only=True, map_location=device); serialize RNG states with safe supported primitives/tensors."
+    ],
+    "model_code_sha256": "adf6b81439b2065d12b8242ea7ebb70e8d75da654a2adaf73abf1963e0686f8e",
+    "model_config": {
+      "activation": "GELU",
+      "attention_dropout": 0.1,
+      "attention_output_bias": true,
+      "context_length": 128,
+      "d_ff": 512,
+      "d_model": 128,
+      "dropout": 0.1,
+      "embedding_dropout": 0.1,
+      "embedding_padding_idx": null,
+      "ffn_bias": true,
+      "ffn_hidden_dropout": 0.1,
+      "ffn_output_dropout": 0.1,
+      "gelu_approximate": "none",
+      "head_dim": 32,
+      "ignore_index": -100,
+      "layer_norm_eps": 1e-05,
+      "n_heads": 4,
+      "n_layers": 3,
+      "normalization": "pre-norm",
+      "output_bias": false,
+      "positional_embedding": "learned_absolute",
+      "qkv_bias": true,
+      "residual_attention_extra_dropout": 0.0,
+      "special_token_ids": {
+        "BOS": 2,
+        "EOS": 3,
+        "PAD": 0,
+        "UNK": 1
+      },
+      "vocab_size": 6000,
+      "weight_tying": true
+    },
+    "model_state_dict": "tensor state_dict; causal buffers reconstructed, not persisted",
+    "n_heads": 4,
+    "n_layers": 3,
+    "pytorch_version": "2.8.0+cpu",
+    "resume_fields_required_in_3B": [
+      "optimizer_state_dict",
+      "epoch",
+      "global_step",
+      "training_config",
+      "rng_states",
+      "dataloader_shuffle_state"
+    ],
+    "schema_version": "3B.1",
+    "seed": 42,
+    "special_token_ids": {
+      "BOS": 2,
+      "EOS": 3,
+      "PAD": 0,
+      "UNK": 1
+    },
+    "tokenizer_sha256": "97953e99660fdebcf071b8327cd79f9cfa62e2ba38eae85d69f9f0e718d55b7e",
+    "train_dataset_sha256": "563dc91fca06407c124cc25d50d8966c0ce2457fb47099d0927b25b99a203dcc",
+    "validation_dataset_sha256": "8fe0658708d461799ab5aaf9207aa81601bf734eab28707e1657a839be72afd9",
+    "vocab_size": 6000,
+    "weight_tying": true
+  },
+  "files_modified": [
+    "modelo.py",
+    "resultados/reporte_modelo_3A.json (new)"
+  ],
+  "forward_smoke_test": {
+    "all_logits_finite": true,
+    "batch_size": 2,
+    "device": "cpu",
+    "input_dtype": "torch.int64",
+    "logits_dtype": "torch.float32",
+    "logits_shape": [
+      2,
+      128,
+      6000
+    ],
+    "parameter_updates": 0,
+    "split": "train",
+    "valid_targets": 256
+  },
+  "frozen_model_configuration": {
+    "activation": "GELU",
+    "attention_dropout": 0.1,
+    "attention_output_bias": true,
+    "context_length": 128,
+    "d_ff": 512,
+    "d_model": 128,
+    "dropout": 0.1,
+    "embedding_dropout": 0.1,
+    "embedding_padding_idx": null,
+    "ffn_bias": true,
+    "ffn_hidden_dropout": 0.1,
+    "ffn_output_dropout": 0.1,
+    "gelu_approximate": "none",
+    "head_dim": 32,
+    "ignore_index": -100,
+    "layer_norm_eps": 1e-05,
+    "n_heads": 4,
+    "n_layers": 3,
+    "normalization": "pre-norm",
+    "output_bias": false,
+    "positional_embedding": "learned_absolute",
+    "qkv_bias": true,
+    "residual_attention_extra_dropout": 0.0,
+    "special_token_ids": {
+      "BOS": 2,
+      "EOS": 3,
+      "PAD": 0,
+      "UNK": 1
+    },
+    "vocab_size": 6000,
+    "weight_tying": true
+  },
+  "future_loss_protocol": {
+    "empty_valid_target_batch": "Skip zero-valid-target batches; reject an empty validation denominator.",
+    "test_content_loaded": false,
+    "train_repeated_targets_intentional": true,
+    "train_stride": 64,
+    "validation_loss": "sum(CE(logits,Y,reduction=sum,ignore_index=-100)) / sum(count(Y!=-100)) across every validation batch",
+    "validation_stride": 128,
+    "validation_unique_target_positions": true,
+    "validation_used_in_this_audit": false
+  },
+  "gradient_statistics": {
+    "all_parameters_receive_finite_gradients": true,
+    "global_unclipped_l2_norm": 14.131372892337165,
+    "parameters": {
+      "bloques.0.atencion.atencion.in_proj_bias": {
+        "finite": true,
+        "l2_norm": 0.4281475317946953,
+        "max_abs": 0.12033913284540176,
+        "nonzero": true
+      },
+      "bloques.0.atencion.atencion.in_proj_weight": {
+        "finite": true,
+        "l2_norm": 1.1385900615144768,
+        "max_abs": 0.04757996276021004,
+        "nonzero": true
+      },
+      "bloques.0.atencion.atencion.out_proj.bias": {
+        "finite": true,
+        "l2_norm": 0.7759383394568593,
+        "max_abs": 0.16721826791763306,
+        "nonzero": true
+      },
+      "bloques.0.atencion.atencion.out_proj.weight": {
+        "finite": true,
+        "l2_norm": 1.1771728381345115,
+        "max_abs": 0.05001014098525047,
+        "nonzero": true
+      },
+      "bloques.0.feed_forward.red.0.bias": {
+        "finite": true,
+        "l2_norm": 0.30793466483248516,
+        "max_abs": 0.04917950555682182,
+        "nonzero": true
+      },
+      "bloques.0.feed_forward.red.0.weight": {
+        "finite": true,
+        "l2_norm": 3.030918445587201,
+        "max_abs": 0.06614116579294205,
+        "nonzero": true
+      },
+      "bloques.0.feed_forward.red.3.bias": {
+        "finite": true,
+        "l2_norm": 0.8583999018674786,
+        "max_abs": 0.17971056699752808,
+        "nonzero": true
+      },
+      "bloques.0.feed_forward.red.3.weight": {
+        "finite": true,
+        "l2_norm": 6.104710617726516,
+        "max_abs": 0.1428704559803009,
+        "nonzero": true
+      },
+      "bloques.0.norm1.bias": {
+        "finite": true,
+        "l2_norm": 0.31837047494700443,
+        "max_abs": 0.06958642601966858,
+        "nonzero": true
+      },
+      "bloques.0.norm1.weight": {
+        "finite": true,
+        "l2_norm": 0.09301330036648689,
+        "max_abs": 0.022097893059253693,
+        "nonzero": true
+      },
+      "bloques.0.norm2.bias": {
+        "finite": true,
+        "l2_norm": 0.1850246138093163,
+        "max_abs": 0.04902192950248718,
+        "nonzero": true
+      },
+      "bloques.0.norm2.weight": {
+        "finite": true,
+        "l2_norm": 0.231063368879502,
+        "max_abs": 0.05203600972890854,
+        "nonzero": true
+      },
+      "bloques.1.atencion.atencion.in_proj_bias": {
+        "finite": true,
+        "l2_norm": 0.407180865472827,
+        "max_abs": 0.0984404906630516,
+        "nonzero": true
+      },
+      "bloques.1.atencion.atencion.in_proj_weight": {
+        "finite": true,
+        "l2_norm": 1.1601474820921558,
+        "max_abs": 0.04543560743331909,
+        "nonzero": true
+      },
+      "bloques.1.atencion.atencion.out_proj.bias": {
+        "finite": true,
+        "l2_norm": 0.7331671363698258,
+        "max_abs": 0.16146232187747955,
+        "nonzero": true
+      },
+      "bloques.1.atencion.atencion.out_proj.weight": {
+        "finite": true,
+        "l2_norm": 1.1419756856829504,
+        "max_abs": 0.05400405079126358,
+        "nonzero": true
+      },
+      "bloques.1.feed_forward.red.0.bias": {
+        "finite": true,
+        "l2_norm": 0.27544056710506976,
+        "max_abs": 0.040665462613105774,
+        "nonzero": true
+      },
+      "bloques.1.feed_forward.red.0.weight": {
+        "finite": true,
+        "l2_norm": 2.975809149306018,
+        "max_abs": 0.05905944108963013,
+        "nonzero": true
+      },
+      "bloques.1.feed_forward.red.3.bias": {
+        "finite": true,
+        "l2_norm": 0.751092203578938,
+        "max_abs": 0.15481466054916382,
+        "nonzero": true
+      },
+      "bloques.1.feed_forward.red.3.weight": {
+        "finite": true,
+        "l2_norm": 5.791606102901482,
+        "max_abs": 0.12678518891334534,
+        "nonzero": true
+      },
+      "bloques.1.norm1.bias": {
+        "finite": true,
+        "l2_norm": 0.28984276780481705,
+        "max_abs": 0.06780502945184708,
+        "nonzero": true
+      },
+      "bloques.1.norm1.weight": {
+        "finite": true,
+        "l2_norm": 0.09574592255118897,
+        "max_abs": 0.028326163068413734,
+        "nonzero": true
+      },
+      "bloques.1.norm2.bias": {
+        "finite": true,
+        "l2_norm": 0.1728471846995883,
+        "max_abs": 0.054039910435676575,
+        "nonzero": true
+      },
+      "bloques.1.norm2.weight": {
+        "finite": true,
+        "l2_norm": 0.22783545517911144,
+        "max_abs": 0.06158120185136795,
+        "nonzero": true
+      },
+      "bloques.2.atencion.atencion.in_proj_bias": {
+        "finite": true,
+        "l2_norm": 0.3968479786475828,
+        "max_abs": 0.11387573927640915,
+        "nonzero": true
+      },
+      "bloques.2.atencion.atencion.in_proj_weight": {
+        "finite": true,
+        "l2_norm": 1.1112331639555184,
+        "max_abs": 0.04452519491314888,
+        "nonzero": true
+      },
+      "bloques.2.atencion.atencion.out_proj.bias": {
+        "finite": true,
+        "l2_norm": 0.6838794338282148,
+        "max_abs": 0.14183971285820007,
+        "nonzero": true
+      },
+      "bloques.2.atencion.atencion.out_proj.weight": {
+        "finite": true,
+        "l2_norm": 1.09481740541109,
+        "max_abs": 0.05436114966869354,
+        "nonzero": true
+      },
+      "bloques.2.feed_forward.red.0.bias": {
+        "finite": true,
+        "l2_norm": 0.29382806730962274,
+        "max_abs": 0.04434809461236,
+        "nonzero": true
+      },
+      "bloques.2.feed_forward.red.0.weight": {
+        "finite": true,
+        "l2_norm": 2.910304793120718,
+        "max_abs": 0.07293221354484558,
+        "nonzero": true
+      },
+      "bloques.2.feed_forward.red.3.bias": {
+        "finite": true,
+        "l2_norm": 0.720874941923083,
+        "max_abs": 0.14945736527442932,
+        "nonzero": true
+      },
+      "bloques.2.feed_forward.red.3.weight": {
+        "finite": true,
+        "l2_norm": 5.678955670025168,
+        "max_abs": 0.1324361115694046,
+        "nonzero": true
+      },
+      "bloques.2.norm1.bias": {
+        "finite": true,
+        "l2_norm": 0.29865013301248755,
+        "max_abs": 0.0591292530298233,
+        "nonzero": true
+      },
+      "bloques.2.norm1.weight": {
+        "finite": true,
+        "l2_norm": 0.0795806026480664,
+        "max_abs": 0.018945444375276566,
+        "nonzero": true
+      },
+      "bloques.2.norm2.bias": {
+        "finite": true,
+        "l2_norm": 0.1875702322920828,
+        "max_abs": 0.043229810893535614,
+        "nonzero": true
+      },
+      "bloques.2.norm2.weight": {
+        "finite": true,
+        "l2_norm": 0.24033601894576032,
+        "max_abs": 0.04792580381035805,
+        "nonzero": true
+      },
+      "embedding_posiciones.weight": {
+        "finite": true,
+        "l2_norm": 0.6575394765351623,
+        "max_abs": 0.023955244570970535,
+        "nonzero": true
+      },
+      "embedding_tokens.weight": {
+        "finite": true,
+        "l2_norm": 1.7242585030176818,
+        "max_abs": 0.23924842476844788,
+        "nonzero": true
+      },
+      "norm_final.bias": {
+        "finite": true,
+        "l2_norm": 0.08521605164967293,
+        "max_abs": 0.01701655611395836,
+        "nonzero": true
+      },
+      "norm_final.weight": {
+        "finite": true,
+        "l2_norm": 7.3615365390956,
+        "max_abs": 1.0138897895812988,
+        "nonzero": true
+      }
+    }
+  },
+  "historical_1_38_million_difference": -544,
+  "initialization_statistics": {
+    "all_finite": true,
+    "custom_initialization": false,
+    "defaults": {
+      "FFN_bias": "uniform +-1/sqrt(fan_in)",
+      "LayerNorm": "weight ones, bias zeros",
+      "Linear_weights": "Kaiming uniform a=sqrt(5), equivalent uniform +-1/sqrt(fan_in)",
+      "QKV_and_attention_output_bias": "zeros",
+      "QKV_weight": "Xavier uniform",
+      "embedding": "N(0,1), no padding_idx",
+      "output_projection": "weight replaced by token embedding shared Parameter"
+    },
+    "parameters": {
+      "bloques.0.atencion.atencion.in_proj_bias": {
+        "all_zero": true,
+        "finite": true,
+        "mean": 0.0,
+        "numel": 384,
+        "shape": [
+          384
+        ],
+        "std_population": 0.0
+      },
+      "bloques.0.atencion.atencion.in_proj_weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": -0.0005267694941721857,
+        "numel": 49152,
+        "shape": [
+          384,
+          128
+        ],
+        "std_population": 0.06248350813984871
+      },
+      "bloques.0.atencion.atencion.out_proj.bias": {
+        "all_zero": true,
+        "finite": true,
+        "mean": 0.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "bloques.0.atencion.atencion.out_proj.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 0.00023595773382112384,
+        "numel": 16384,
+        "shape": [
+          128,
+          128
+        ],
+        "std_population": 0.05085887759923935
+      },
+      "bloques.0.feed_forward.red.0.bias": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 0.001738909399136901,
+        "numel": 512,
+        "shape": [
+          512
+        ],
+        "std_population": 0.051575370132923126
+      },
+      "bloques.0.feed_forward.red.0.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": -0.00033258667099289596,
+        "numel": 65536,
+        "shape": [
+          512,
+          128
+        ],
+        "std_population": 0.050935953855514526
+      },
+      "bloques.0.feed_forward.red.3.bias": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 0.0016196308424696326,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.02562432363629341
+      },
+      "bloques.0.feed_forward.red.3.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": -0.00011232486576773226,
+        "numel": 65536,
+        "shape": [
+          128,
+          512
+        ],
+        "std_population": 0.025508709251880646
+      },
+      "bloques.0.norm1.bias": {
+        "all_zero": true,
+        "finite": true,
+        "mean": 0.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "bloques.0.norm1.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 1.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "bloques.0.norm2.bias": {
+        "all_zero": true,
+        "finite": true,
+        "mean": 0.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "bloques.0.norm2.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 1.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "bloques.1.atencion.atencion.in_proj_bias": {
+        "all_zero": true,
+        "finite": true,
+        "mean": 0.0,
+        "numel": 384,
+        "shape": [
+          384
+        ],
+        "std_population": 0.0
+      },
+      "bloques.1.atencion.atencion.in_proj_weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 0.00013825106725562364,
+        "numel": 49152,
+        "shape": [
+          384,
+          128
+        ],
+        "std_population": 0.06244242563843727
+      },
+      "bloques.1.atencion.atencion.out_proj.bias": {
+        "all_zero": true,
+        "finite": true,
+        "mean": 0.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "bloques.1.atencion.atencion.out_proj.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 0.00045265996595844626,
+        "numel": 16384,
+        "shape": [
+          128,
+          128
+        ],
+        "std_population": 0.051211897283792496
+      },
+      "bloques.1.feed_forward.red.0.bias": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 0.0022735113743692636,
+        "numel": 512,
+        "shape": [
+          512
+        ],
+        "std_population": 0.0500168651342392
+      },
+      "bloques.1.feed_forward.red.0.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": -0.00010821532487170771,
+        "numel": 65536,
+        "shape": [
+          512,
+          128
+        ],
+        "std_population": 0.050929874181747437
+      },
+      "bloques.1.feed_forward.red.3.bias": {
+        "all_zero": false,
+        "finite": true,
+        "mean": -0.000384107930585742,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.024845944717526436
+      },
+      "bloques.1.feed_forward.red.3.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": -9.208604751620442e-05,
+        "numel": 65536,
+        "shape": [
+          128,
+          512
+        ],
+        "std_population": 0.025548573583364487
+      },
+      "bloques.1.norm1.bias": {
+        "all_zero": true,
+        "finite": true,
+        "mean": 0.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "bloques.1.norm1.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 1.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "bloques.1.norm2.bias": {
+        "all_zero": true,
+        "finite": true,
+        "mean": 0.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "bloques.1.norm2.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 1.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "bloques.2.atencion.atencion.in_proj_bias": {
+        "all_zero": true,
+        "finite": true,
+        "mean": 0.0,
+        "numel": 384,
+        "shape": [
+          384
+        ],
+        "std_population": 0.0
+      },
+      "bloques.2.atencion.atencion.in_proj_weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": -4.8464873543707654e-05,
+        "numel": 49152,
+        "shape": [
+          384,
+          128
+        ],
+        "std_population": 0.06252972781658173
+      },
+      "bloques.2.atencion.atencion.out_proj.bias": {
+        "all_zero": true,
+        "finite": true,
+        "mean": 0.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "bloques.2.atencion.atencion.out_proj.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": -0.0005903757410123944,
+        "numel": 16384,
+        "shape": [
+          128,
+          128
+        ],
+        "std_population": 0.050777290016412735
+      },
+      "bloques.2.feed_forward.red.0.bias": {
+        "all_zero": false,
+        "finite": true,
+        "mean": -0.0004595913051161915,
+        "numel": 512,
+        "shape": [
+          512
+        ],
+        "std_population": 0.050508759915828705
+      },
+      "bloques.2.feed_forward.red.0.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 0.00011313619324937463,
+        "numel": 65536,
+        "shape": [
+          512,
+          128
+        ],
+        "std_population": 0.051090218126773834
+      },
+      "bloques.2.feed_forward.red.3.bias": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 0.0012590467231348157,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0248146690428257
+      },
+      "bloques.2.feed_forward.red.3.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 3.1789160857442766e-05,
+        "numel": 65536,
+        "shape": [
+          128,
+          512
+        ],
+        "std_population": 0.025478534400463104
+      },
+      "bloques.2.norm1.bias": {
+        "all_zero": true,
+        "finite": true,
+        "mean": 0.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "bloques.2.norm1.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 1.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "bloques.2.norm2.bias": {
+        "all_zero": true,
+        "finite": true,
+        "mean": 0.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "bloques.2.norm2.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 1.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "embedding_posiciones.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 0.011206897906959057,
+        "numel": 16384,
+        "shape": [
+          128,
+          128
+        ],
+        "std_population": 1.00698983669281
+      },
+      "embedding_tokens.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": -0.0012628842378035188,
+        "numel": 768000,
+        "shape": [
+          6000,
+          128
+        ],
+        "std_population": 1.0006608963012695
+      },
+      "norm_final.bias": {
+        "all_zero": true,
+        "finite": true,
+        "mean": 0.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      },
+      "norm_final.weight": {
+        "all_zero": false,
+        "finite": true,
+        "mean": 1.0,
+        "numel": 128,
+        "shape": [
+          128
+        ],
+        "std_population": 0.0
+      }
+    },
+    "unexpected_all_zero_parameters": []
+  },
+  "padding_behavior": {
+    "attention_padding_mask_added": false,
+    "explanation": "Causal mask blocks future input positions; ignore_index removes targets from loss only. PAD suffix is never visible to earlier valid queries.",
+    "ignored_logit_changes_leave_loss_identical": true,
+    "ignored_targets": 125,
+    "loss_matches_valid_target_only_CE": true,
+    "pad_suffix_does_not_affect_valid_prefix": true,
+    "synthetic_document_tokens": [
+      2,
+      5,
+      6,
+      3
+    ],
+    "synthetic_loss": 94.50909423828125,
+    "trailing_PAD_input_positions": 124,
+    "valid_prefix_logit_max_difference": 0.0,
+    "valid_targets": 3
+  },
+  "parameter_breakdown": {
+    "blocks": [
+      {
+        "attention": 66048,
+        "ffn": 131712,
+        "index": 0,
+        "layer_norms": 512,
+        "total": 198272
+      },
+      {
+        "attention": 66048,
+        "ffn": 131712,
+        "index": 1,
+        "layer_norms": 512,
+        "total": 198272
+      },
+      {
+        "attention": 66048,
+        "ffn": 131712,
+        "index": 2,
+        "layer_norms": 512,
+        "total": 198272
+      }
+    ],
+    "final_layer_norm": 256,
+    "output_projection_additional_unique": 0,
+    "output_projection_shared": 768000,
+    "position_embedding": 16384,
+    "token_embedding": 768000
+  },
+  "parameter_memory": {
+    "adamw_two_fp32_moments_bytes": 11035648,
+    "fp16_bf16_reference_MiB": 2.631103515625,
+    "fp16_bf16_reference_bytes": 2758912,
+    "fp32_MiB": 5.26220703125,
+    "fp32_bytes": 5517824,
+    "gradient_fp32_bytes": 5517824,
+    "parameters_gradients_adamw_moments_fp32_MiB": 21.048828125
+  },
+  "scope_verification": {
+    "allowed_new_files": [
+      "resultados/reporte_modelo_3A.json"
+    ],
+    "baseline_file_count": 77,
+    "checkpoint_or_history_created": false,
+    "config_unchanged": true,
+    "existing_files_changed": [
+      "modelo.py"
+    ],
+    "git_repository_present": false,
+    "method": "SHA256 baseline of every existing project file and final inventory; python -B prevents bytecode artifacts",
+    "model_code_sha256_after": "adf6b81439b2065d12b8242ea7ebb70e8d75da654a2adaf73abf1963e0686f8e",
+    "model_code_sha256_before": "b224ce5d96817ab4916cfa882fdbba6022a9e434aaa5160cef0145d73701c9e0"
+  },
+  "tensor_shapes": {
+    "K": [
+      2,
+      4,
+      128,
+      32
+    ],
+    "Q": [
+      2,
+      4,
+      128,
+      32
+    ],
+    "V": [
+      2,
+      4,
+      128,
+      32
+    ],
+    "attention_scores_reference": [
+      2,
+      4,
+      128,
+      128
+    ],
+    "block_0": [
+      2,
+      128,
+      128
+    ],
+    "block_1": [
+      2,
+      128,
+      128
+    ],
+    "block_2": [
+      2,
+      128,
+      128
+    ],
+    "concatenated_heads": [
+      2,
+      128,
+      128
+    ],
+    "ffn_hidden": [
+      2,
+      128,
+      512
+    ],
+    "final_norm": [
+      2,
+      128,
+      128
+    ],
+    "input_X": [
+      2,
+      128
+    ],
+    "logits": [
+      2,
+      128,
+      6000
+    ],
+    "position_embeddings": [
+      128,
+      128
+    ],
+    "targets_Y": [
+      2,
+      128
+    ],
+    "token_embeddings": [
+      2,
+      128,
+      128
+    ]
+  },
+  "total_parameters": 1379456,
+  "trainable_parameters": 1379456,
+  "verdict": "LISTO PARA ADAPTAR Y EJECUTAR EL ENTRENAMIENTO",
+  "verified_input_hashes": {
+    "datos/dataset/reporte_dataset.json": {
+      "actual": "a060e3abb4d4842c33543518977faf2bdb21484e5b8bde0f717d66172afe69f6",
+      "expected": "a060e3abb4d4842c33543518977faf2bdb21484e5b8bde0f717d66172afe69f6",
+      "match": true
+    },
+    "datos/dataset/test.pt": {
+      "actual": "6d4193e076f18d83bff4c0b45098a25a8bad381f3b6eae0f29cb2f49e44e4938",
+      "expected": "6d4193e076f18d83bff4c0b45098a25a8bad381f3b6eae0f29cb2f49e44e4938",
+      "match": true
+    },
+    "datos/dataset/train.pt": {
+      "actual": "563dc91fca06407c124cc25d50d8966c0ce2457fb47099d0927b25b99a203dcc",
+      "expected": "563dc91fca06407c124cc25d50d8966c0ce2457fb47099d0927b25b99a203dcc",
+      "match": true
+    },
+    "datos/dataset/validation.pt": {
+      "actual": "8fe0658708d461799ab5aaf9207aa81601bf734eab28707e1657a839be72afd9",
+      "expected": "8fe0658708d461799ab5aaf9207aa81601bf734eab28707e1657a839be72afd9",
+      "match": true
+    },
+    "datos/tokenizer/tokenizer.json": {
+      "actual": "97953e99660fdebcf071b8327cd79f9cfa62e2ba38eae85d69f9f0e718d55b7e",
+      "expected": "97953e99660fdebcf071b8327cd79f9cfa62e2ba38eae85d69f9f0e718d55b7e",
+      "match": true
+    }
+  },
+  "version": "3A.1",
+  "warnings": [
+    "entrenar.py must be adapted in 3B: use len(DataLoader), not len(dataset.train)//(batch*context).",
+    "Validation must accumulate CE(reduction=sum, ignore_index=-100) / valid target count over the entire split; current trainer averages batch means and checks only 10 batches.",
+    "Trainer must transfer batches and model to the same device; GestorDataset currently defaults to CPU.",
+    "Future checkpoint reconstruction requires constructors/loaders accepting saved model_config; current architecture constructors use imported config globals.",
+    "CPU-only PyTorch runtime; CUDA/MPS portability follows register_buffer semantics but could not be executed on unavailable devices.",
+    "High untrained tied-embedding loss is an initialization observation, not a quality or convergence verdict; initialization was preserved.",
+    "Batch 8/16/32 memory estimates are not peak measurements or a batch-size selection; backward, optimizer intermediates and allocator overhead add memory.",
+    "Structural tests establish correctness, not learned scientific quality or sufficient data for convergence."
+  ],
+  "weight_tying": {
+    "mutation_propagates_and_restored": true,
+    "optimizer_parameter_objects_unique": true,
+    "parameter_identity": true,
+    "saved_parameters": 768000,
+    "storage_identity": true,
+    "unique_parameter_tensors": 40,
+    "untied_total_parameters": 2147456,
+    "vocabulary_parameter_percentage": 55.67412081284216
+  }
+}
